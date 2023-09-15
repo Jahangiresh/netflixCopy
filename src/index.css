@@ -52,3 +52,11 @@ body {
 .card__movie {
   position: relative;
 }
+.MuiGrid-grid-xs-2 {
+  min-width: 260px;
+  margin-bottom: 15px !important;
+}
+.overFlowHandler {
+  display: flex !important;
+  justify-content: space-between;
+}

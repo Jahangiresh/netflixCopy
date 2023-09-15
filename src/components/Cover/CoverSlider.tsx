@@ -13,6 +13,8 @@ export default function CoverSlider() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1500,
   };
   return (
     <div className="cover">
