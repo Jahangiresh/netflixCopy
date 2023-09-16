@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { backgroundColorNames } from "chalk";
 import { Grid } from "@mui/material";
 const style = {
   position: "absolute" as "absolute",
@@ -70,7 +69,6 @@ export default function MovieCard(props: any) {
           </Box>
         </Modal>
       </div>
-      ;
       <Card
         onClick={handleOpen}
         className="card__movie"

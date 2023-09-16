@@ -6,6 +6,32 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useSearchMoviesQuery } from "../../features/moviesSlice";
+import { Login } from "@mui/icons-material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Modal,
+} from "@mui/material";
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 700,
+  bgcolor: "#121212",
+  border: "0",
+  boxShadow: 24,
+  ring: "0",
+};
+const styleCover = {
+  width: "100%",
+  height: "300px",
+};
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -50,6 +76,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavMenu() {
   const [isFocused, setIsFocused] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = (e) => {
+    e.stopPropagation();
+    setOpen(false);
+  };
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -61,8 +93,103 @@ export default function NavMenu() {
   React.useEffect(() => {
     console.log(isFocused);
   }, [isFocused]);
+  const [searchedWords, setSearchedWords] = React.useState("");
+  const setSearchDataHandler = (e: string) => {
+    setSearchedWords(e);
+  };
+  const [dataMovies, setDataMovies] = React.useState();
+
+  const { data } = useSearchMoviesQuery(searchedWords);
+  React.useEffect(() => {
+    setDataMovies(data);
+  }, [searchedWords]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {isFocused ? (
+        <div className="divSearch">
+          <Grid className="my__container overFlowHandler " container>
+            {dataMovies &&
+              dataMovies.movies
+                .filter((movie) =>
+                  movie.name.toLowerCase().includes(searchedWords.toLowerCase())
+                )
+                .map((filtered) => (
+                  <Grid item xs={2}>
+                    <>
+                      <div>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <Box sx={style}>
+                            <Box sx={styleCover}>
+                              <iframe
+                                width="100%"
+                                height="100%"
+                                src="https://www.youtube.com/embed/OAZWXUkrjPc?si=pJxkUubUCGSeB6Eo"
+                                title="ss"
+                                allow=" clipboard-write; encrypted-media; gyroscope; picture-in-picture; "
+                              ></iframe>
+                            </Box>
+                            <Grid
+                              sx={{ marginTop: "30px" }}
+                              className="my__container overFlowHandler "
+                              container
+                            >
+                              {filtered.series.map((serie) => (
+                                <Grid item xs={3}>
+                                  <Box sx={{ height: "140px" }}>
+                                    <img
+                                      width={"100%"}
+                                      height={"110px"}
+                                      src="https://media.istockphoto.com/id/1192173219/vector/play-button.jpg?s=612x612&w=0&k=20&c=MNhAxkFgl2eQFu5TMFccbqQJydJIUb3f1uFrn46gdlE="
+                                      alt="pl"
+                                    />
+                                    <Typography>{serie.name}</Typography>
+                                  </Box>
+                                </Grid>
+                              ))}
+                            </Grid>
+                          </Box>
+                        </Modal>
+                      </div>
+                      <Card
+                        onClick={handleOpen}
+                        className="card__movie"
+                        sx={{ width: 260, height: "300px" }}
+                      >
+                        <CardMedia
+                          component="img"
+                          alt="green iguana"
+                          height="100%"
+                          image={filtered.coverImg}
+                        />
+                        <CardContent className="card__content">
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            style={{ fontSize: "20px", marginBottom: 0 }}
+                            component="div"
+                          >
+                            {filtered.name}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button size="small">Share</Button>
+                          <Button size="small">Learn More</Button>
+                        </CardActions>
+                      </Card>
+                    </>
+                  </Grid>
+                ))}
+          </Grid>
+        </div>
+      ) : (
+        ""
+      )}
       <AppBar position="static">
         <Toolbar>
           <Typography
@@ -87,6 +214,7 @@ export default function NavMenu() {
             <StyledInputBase
               onFocus={handleFocus}
               onBlur={handleBlur}
+              onChange={(e) => setSearchDataHandler(e.target.value)}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
