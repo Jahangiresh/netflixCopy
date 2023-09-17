@@ -72,3 +72,10 @@ body {
   -webkit-backdrop-filter: blur(17.5px);
   padding-top: 100px;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
+.headerlangs__li:hover {
+  transition: 300ms;
+  color: red;
+}

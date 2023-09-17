@@ -5,6 +5,7 @@ import MovieCard from "./MovieCard";
 import { Box } from "@mui/material";
 import { useGetAllMoviesQuery } from "../../features/moviesSlice";
 import Loader from "../Loader/Loader";
+import { ICategory, IMovie } from "../../types/movie.types";
 
 const Div = styled("div")(({ theme }) => ({
   ...theme.typography.button,
@@ -13,14 +14,14 @@ const Div = styled("div")(({ theme }) => ({
 }));
 
 const MovieRows = () => {
-  const [movies, setMovies] = React.useState();
+  const [categories, setCategories] = React.useState<ICategory[]>();
   const getAllMovies = useGetAllMoviesQuery("e");
 
   React.useEffect(() => {
     const getDatas = async () => {
       const { data } = getAllMovies;
       if (data.isSuccess) {
-        setMovies(data.categories);
+        setCategories(data.categories);
       }
     };
     getDatas();
@@ -32,19 +33,19 @@ const MovieRows = () => {
         <Loader />
       ) : (
         <>
-          {movies &&
-            movies.map((movie) => (
+          {categories &&
+            categories.map((category: ICategory) => (
               <Box
                 sx={{ marginTop: "20px" }}
                 id="margin-dense"
                 className="my__container "
               >
                 <Div sx={{ fontSize: "20px", marginBottom: "30px" }}>
-                  {movie.categoryName}
+                  {category.categoryName}
                 </Div>
 
                 <Grid className="my__container overFlowHandler " container>
-                  {movie.movies.map((movie) => (
+                  {category.movies.map((movie: IMovie) => (
                     <Grid item xs={2}>
                       <MovieCard movieDetails={movie} />
                     </Grid>

@@ -1,11 +1,13 @@
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useTranslation } from "react-i18next";
+
 export default function CoverSlider() {
+  const { t } = useTranslation();
   const settings = {
     dots: false,
     arrows: false,
@@ -34,15 +36,16 @@ export default function CoverSlider() {
                 variant="h5"
                 component="div"
               >
-                Lizard
+                {t("Lizard")}
               </Typography>
               <Typography
                 style={{ fontWeight: "bold", fontSize: "17px" }}
                 variant="body2"
                 color="white"
               >
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                {t(
+                  "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica"
+                )}
               </Typography>
             </CardContent>
             <div className="my__container">
@@ -54,7 +57,7 @@ export default function CoverSlider() {
                 }}
                 variant="contained"
               >
-                Watch
+                {t("Watch")}
               </Button>
             </div>
           </div>
@@ -74,15 +77,16 @@ export default function CoverSlider() {
                 variant="h5"
                 component="div"
               >
-                Lizard
+                {t("Lizard")}
               </Typography>
               <Typography
                 style={{ fontWeight: "bold", fontSize: "17px" }}
                 variant="body2"
                 color="white"
               >
-                Lizards are a widespread group of squamate reptiles, with over
-                6,000 species, ranging across all continents except Antarctica
+                {t(
+                  "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica"
+                )}
               </Typography>
             </CardContent>
             <div className="my__container">
@@ -94,7 +98,7 @@ export default function CoverSlider() {
                 }}
                 variant="contained"
               >
-                Watch
+                {t("Watch")}
               </Button>
             </div>
           </div>

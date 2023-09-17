@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Grid } from "@mui/material";
+import { IMovie, IMovieSeries } from "../../types/movie.types";
+import ModalComponent from "./ModalComponent";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -24,14 +26,15 @@ const styleCover = {
   height: "300px",
 };
 export default function MovieCard(props: any) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
       <div>
-        <Modal
+        <ModalComponent open={open} movieDetails={props.movieDetails} />
+        {/* <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -52,7 +55,7 @@ export default function MovieCard(props: any) {
               className="my__container overFlowHandler "
               container
             >
-              {props.movieDetails.series.map((serie) => (
+              {props.movieDetails.series.map((serie: IMovieSeries) => (
                 <Grid item xs={3}>
                   <Box sx={{ height: "140px" }}>
                     <img
@@ -67,7 +70,7 @@ export default function MovieCard(props: any) {
               ))}
             </Grid>
           </Box>
-        </Modal>
+        </Modal> */}
       </div>
       <Card
         onClick={handleOpen}

@@ -7,7 +7,8 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSearchMoviesQuery } from "../../features/moviesSlice";
-import { Login } from "@mui/icons-material";
+import Langs from "./Langs";
+
 import {
   Button,
   Card,
@@ -17,6 +18,7 @@ import {
   Grid,
   Modal,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -103,6 +105,7 @@ export default function NavMenu() {
   React.useEffect(() => {
     setDataMovies(data);
   }, [searchedWords]);
+  const { t } = useTranslation();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -110,6 +113,7 @@ export default function NavMenu() {
         <div className="divSearch">
           <Grid className="my__container overFlowHandler " container>
             {dataMovies &&
+              // @ts-ignore
               dataMovies.movies
                 .filter((movie) =>
                   movie.name.toLowerCase().includes(searchedWords.toLowerCase())
@@ -215,10 +219,11 @@ export default function NavMenu() {
               onFocus={handleFocus}
               onBlur={handleBlur}
               onChange={(e) => setSearchDataHandler(e.target.value)}
-              placeholder="Search…"
+              placeholder={t("Search")}
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
+          <Langs />
         </Toolbar>
       </AppBar>
     </Box>
