@@ -1,4 +1,4 @@
-# mui + mock + RTK query
+# mui + mock + RTK query + i18Next
 
 
 
