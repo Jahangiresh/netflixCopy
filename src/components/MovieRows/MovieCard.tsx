@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Grid } from "@mui/material";
 import { IMovie, IMovieSeries } from "../../types/movie.types";
-import ModalComponent from "./ModalComponent";
+
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -20,6 +20,7 @@ const style = {
   border: "0",
   boxShadow: 24,
   ring: "0",
+  paddingBottom: "20px",
 };
 const styleCover = {
   width: "100%",
@@ -33,8 +34,8 @@ export default function MovieCard(props: any) {
   return (
     <>
       <div>
-        <ModalComponent open={open} movieDetails={props.movieDetails} />
-        {/* <Modal
+        {/* <ModalComponent open={open} movieDetails={props.movieDetails} /> */}
+        <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -57,11 +58,22 @@ export default function MovieCard(props: any) {
             >
               {props.movieDetails.series.map((serie: IMovieSeries) => (
                 <Grid item xs={3}>
-                  <Box sx={{ height: "140px" }}>
+                  <Box
+                    sx={{
+                      height: "140px",
+                      background: "balck",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      backgroundColor: "black",
+                      cursor: "pointer",
+                    }}
+                  >
                     <img
-                      width={"100%"}
+                      width={"60%"}
                       height={"110px"}
-                      src="https://media.istockphoto.com/id/1192173219/vector/play-button.jpg?s=612x612&w=0&k=20&c=MNhAxkFgl2eQFu5TMFccbqQJydJIUb3f1uFrn46gdlE="
+                      src="https://www.friidesigns.com/wp-content/uploads/2018/11/white-play-icon-png-6.png"
                       alt="pl"
                     />
                     <Typography>{serie.name}</Typography>
@@ -70,7 +82,7 @@ export default function MovieCard(props: any) {
               ))}
             </Grid>
           </Box>
-        </Modal> */}
+        </Modal>
       </div>
       <Card
         onClick={handleOpen}

@@ -20,6 +20,8 @@ const MovieRows = () => {
   React.useEffect(() => {
     const getDatas = async () => {
       const { data } = getAllMovies;
+      console.log(data, "sss");
+
       if (data.isSuccess) {
         setCategories(data.categories);
       }
